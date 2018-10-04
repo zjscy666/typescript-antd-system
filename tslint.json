@@ -8,18 +8,15 @@
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js",
-      "src/**/**/*.jsx",
-      "src/**/*.jsx",
-      "src/index.tsx",
-      "src/**/*.js"
+      "coverage/lcov-report/*.js"
     ]
   },
   "rules": {
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "member-ordering": false,
-    "binary-expression-operand-order": false
+    "binary-expression-operand-order": false,
+    "no-shadowed-variable": false
   },
   "jsRules": {
     "object-literal-sort-keys": false

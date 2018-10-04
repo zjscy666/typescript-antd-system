@@ -7,7 +7,7 @@ let Item = Menu.Item;
 let menus = routesConfig.menus
 export default class SiderMenus extends Component {
     
-    getdatas = r => {
+    getdatas = rr => {
         return menus.map(r => {
             return (
                 <SubMenu
@@ -19,7 +19,7 @@ export default class SiderMenus extends Component {
                         </span>
                     }
                 >
-                    {r.subs && r.subs.map(r => this.getsubdata(r))}
+                    {r.subs && r.subs.map(v => this.getsubdata(v))}
                 </SubMenu>
             )
         });
@@ -35,7 +35,7 @@ export default class SiderMenus extends Component {
                     </span>
                 }
             >
-                {r.subs.map(r => this.getsubdata(r))}
+                {r.subs.map(v => this.getsubdata(v))}
             </SubMenu>)
         } else if (r.component) {
             return this.routeList(r);

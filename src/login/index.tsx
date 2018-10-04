@@ -1,47 +1,51 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch  } from 'redux';
 import { loginStatus, userInfo } from '../redux/actions/login'
 import { login } from '../model/login'
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, message } from 'antd';
+import { IBaseReActions } from "../redux/reducer/login/base";
+import { IBaseComAction, IOwnstate } from "../redux/actions/base";
 
 const FormItem = Form.Item;
 
-class Login extends React.Component {
-	constructor(props) {
+interface IOwnProps {
+	userName : string;
+	pws: string;
+}
+
+class Login extends React.Component<ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & IOwnProps, IOwnstate>{
+	constructor(props: any) {
 		super(props);
 		this.state = {
 			userName: 'admin',
-			pws: 'mmy123'
+			pws: 'mmy123',
 		};
 		this.userChange = this.userChange.bind(this);
 		this.pwsChange = this.pwsChange.bind(this);
 		this.login = this.login.bind(this);
 	}
-	userChange(event) {
+	public userChange(event:any) {
 		this.setState({ userName: event.target.value });
 	}
-	pwsChange(event) {
+	public pwsChange(event:any) {
 		this.setState({ pws: event.target.value });
 	}
-	async login() {
-		let res = await login();
+	public async login() {
+		const res = await login();
 		if (this.state.userName === res.userName && this.state.pws === res.password) {
-			let {loginStatus, userInfo} = this.props;
-			userInfo({'username': this.state.userName, 'password': this.state.pws});
-			loginStatus(true);
+			const { loginStatus, userInfo } = this.props;
+			userInfo({ 'username': this.state.userName, 'password': this.state.pws });
+			loginStatus({'loginStatus': true});
 		} else {
 			message.error('用户名或者密码错误');
 		}
 	}
-	componentWillMount() {
-	}
-	render() {
-		var userName = this.state.userName;
-		var pws = this.state.pws;
-		let { loginStatus } = this.props.login;
+	public render() {
+		const userName = this.state.userName;
+		const pws = this.state.pws;
+		const { loginStatus } = this.props.login;
 		if (loginStatus) {
 			return <Redirect to={'/User/Tom'} />;
 		}
@@ -63,23 +67,9 @@ class Login extends React.Component {
 			</div>
 		);
 	}
-	componentDidMount() {
-	}
-	componentWillUnmount() {
-	}
 }
 
-Login.propTypes = {
-	login: PropTypes.shape({
-		loginStatus: PropTypes.bool.isRequired,
-		userInfo: PropTypes.shape({
-			userName: PropTypes.string,
-			password: PropTypes.string
-		})
-	})
-}
-
-const mapStateToPorps = state => {
+const mapStateToProps = (state: IBaseComAction) => {
 	const { loginStatus, userInfo } = state.login
 	return {
 		login: {
@@ -88,9 +78,9 @@ const mapStateToPorps = state => {
 		}
 	}
 };
-const mapDispatchToProps = dispatch => ({
-    loginStatus: bindActionCreators(loginStatus, dispatch),
-    userInfo: bindActionCreators(userInfo, dispatch),
+const mapDispatchToProps = (dispatch: Dispatch<IBaseReActions>) => ({
+	loginStatus: bindActionCreators(loginStatus, dispatch),
+	userInfo: bindActionCreators(userInfo, dispatch),
 });
 
-export default connect(mapStateToPorps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -5,30 +5,30 @@ import routesConfig from './config';
 
 export default class CRouter extends Component {
 
-    getdatas = routesConfig => {
+    getdatas = config => {
         return Object.keys(routesConfig).map(key => {
-            return routesConfig[key].map(r => {
-                return this.getsubdata(r);
+            return routesConfig[key].map(q => {
+                return this.getsubdata(q);
             })
         }
         )
     }
     getsubdata = r => {
         if (r.subs) {
-            return r.subs.map(r => this.getsubdata(r));
+            return r.subs.map(v => this.getsubdata(v));
         } else if (r.component) {
             return this.routeList(r);
         }
     }
     routeList = r => {
-        let Component = AllComponents[r.component];
+        let MyComponent = AllComponents[r.component];
         return (
             <Route
                 key={r.route || r.key}
                 exact
                 path={r.route || r.key}
                 component={(props) =>
-                    <Component {...props}/>
+                    <MyComponent {...props}/>
                 }
             />
         )

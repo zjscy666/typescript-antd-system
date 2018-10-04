@@ -1,14 +1,16 @@
-let username = '';
-let password = '';
-let initState = {
+import { IBaseReActions } from "./base";
+
+const username = '';
+const password = '';
+const initState = {
     loginStatus: false,
     userInfo: {
-        username: username,
-        password: password
+        username,
+        password
     }
 }
 
-export default function login(state = initState, action) {
+export default function login(state= initState, action: IBaseReActions) {
     const { type, data } = action
     switch (type) {
         case 'userInfo':
