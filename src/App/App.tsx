@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Layout, Icon } from 'antd';
 import Routes from '../routes';
 import SiderMenus from '../siderMenus';
-import "antd/dist/antd.less";
+// import "antd/dist/antd.less";
 import './App.less';
 
 // 暂时只能全局引入less

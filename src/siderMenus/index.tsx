@@ -1,13 +1,29 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import routesConfig from '../routes/config';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-let SubMenu = Menu.SubMenu;
-let Item = Menu.Item;
-let menus = routesConfig.menus
-export default class SiderMenus extends Component {
+const SubMenu = Menu.SubMenu;
+const Item = Menu.Item;
+const menus = routesConfig.menus;
+
+
+interface IOwnProps {
+	theme : string;
+	mode: string;
+}
+
+interface Ir {
+	key: string;
+    subs?: Ir[];
+    title?: string;
+    scan?: string;
+    component?: string|undefined;
+    icon?: string|undefined;
+}
+
+export default class SiderMenus extends React.Component<IOwnProps, {}> {
     
-    getdatas = rr => {
+    public getdatas = (rr: object[]) => {
         return menus.map(r => {
             return (
                 <SubMenu
@@ -24,7 +40,7 @@ export default class SiderMenus extends Component {
             )
         });
     }
-    getsubdata = r => {
+    public getsubdata = (r: Ir): any => {
         if (r.subs) {
             return (<SubMenu
                 key={r.key}
@@ -41,19 +57,25 @@ export default class SiderMenus extends Component {
             return this.routeList(r);
         }
     }
-    routeList = r => {
+    public routeList = (r: Ir) => {
+        // 如果key非要用?可选定义，加这句就好啦
+        // if (r.key == undefined) return null;
         return (<Item
             key={r.key}
         >
-            <Link to={r.route || r.key} replace>
+            <Link to={r.key} replace={true}>
                 {r.icon && <Icon type={r.icon} />}
                 <span className="nav-text">{r.title}</span>
             </Link>
         </Item>)
     };
-    render() {
+    public render() {
+        const res = JSON.parse(JSON.stringify({
+            theme: this.props.theme,
+            mode: this.props.mode
+        }));
         return (
-            <Menu {...this.props}>
+            <Menu {...res}>
                 {this.getdatas(menus)}
             </Menu>
         )

@@ -1,7 +1,7 @@
 import { fetchData } from '../fetch'
 
 export const login = async () => {
-    let res = await fetchData({
+    const res = await fetchData({
         url: '/login',
         type: 'get'
     })
