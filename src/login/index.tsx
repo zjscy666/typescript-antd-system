@@ -16,7 +16,7 @@ interface IOwnProps {
 }
 
 class Login extends React.Component<ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & IOwnProps, IOwnstate>{
-	constructor(props: any) {
+	constructor(props: ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & IOwnProps) {
 		super(props);
 		this.state = {
 			userName: 'admin',
@@ -26,11 +26,11 @@ class Login extends React.Component<ReturnType<typeof mapStateToProps> & ReturnT
 		this.pwsChange = this.pwsChange.bind(this);
 		this.login = this.login.bind(this);
 	}
-	public userChange(event:any) {
-		this.setState({ userName: event.target.value });
+	public userChange: React.ReactEventHandler<HTMLInputElement> = (event) => {
+		this.setState({ userName: (event.target as HTMLInputElement).value });
 	}
-	public pwsChange(event:any) {
-		this.setState({ pws: event.target.value });
+	public pwsChange: React.ReactEventHandler<HTMLInputElement> = (event) => {
+		this.setState({ pws: (event.target as HTMLInputElement).value });
 	}
 	public async login() {
 		const res = await login();

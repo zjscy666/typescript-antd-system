@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-class Tom extends React.Component {
+class Tom extends React.Component<{}, {}> {
     public render() {
         return (
             <div key="Tom">

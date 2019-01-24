@@ -5,12 +5,16 @@ import SiderMenus from '../siderMenus';
 // import "antd/dist/antd.less";
 import './App.less';
 
+interface IState {
+  readonly collapsed: boolean,
+}
+
 // 暂时只能全局引入less
 
 const { Header, Sider, Content } = Layout;
 
-class App extends React.Component {
-  public state = {
+class App extends React.Component<{}, IState>{
+  public readonly state: IState = {
     collapsed: false,
   };
 

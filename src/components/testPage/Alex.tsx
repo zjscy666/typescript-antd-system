@@ -1,15 +1,20 @@
 import * as React from 'react';
 import { Row, Col, Card, Switch } from 'antd';
 
-class Alex extends React.Component {
-    public state = {
+interface IState {
+    readonly animated: boolean,
+    readonly animatedOne: number,
+}
+
+class Alex extends React.Component<{}, IState> {
+    public readonly state: IState = {
         animated: false,
         animatedOne: -1
     };
     public animatedAll = (checked: boolean) => {
         this.setState({ animated: checked });
     };
-    public animatedOne =  (i: number) => (e: any) => {
+    public animatedOne = (i: number) => (e: any) => {
         this.setState({ animatedOne: i });
     };
     public animatedOneOver = () => () => {

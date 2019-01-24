@@ -2,23 +2,15 @@ import  * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import AllComponents from './../components';
 import routesConfig from './config';
-
-interface Ir {
-	key? : string;
-    subs?: Ir[];
-    title?: string;
-    scan?: string;
-    component?: string|undefined;
-    icon?: string|undefined;
-}
+import { Ir } from '../utils/declare';
 
 interface Im {
 	menus: Ir[];
 }
 
-export default class CRouter extends React.Component {
+export default class CRouter extends React.Component<{}, {}> {
 
-    public myCprops = (props: any, MyComponent: any) => () => {
+    public myCprops = (props: {}, MyComponent: string) => () => {
         return  <MyComponent {...props}/>
     };
 
@@ -30,12 +22,14 @@ export default class CRouter extends React.Component {
         }
         )
     }
-    public getsubdata = (r: Ir): any => {
+    public getsubdata = (r: Ir)  : any  => {
         if (r.subs) {
-            return r.subs.map(v => this.getsubdata(v));
+            return (r.subs).map(v => this.getsubdata(v))
         } else if (r.component) {
-            return this.routeList(r);
-        }
+            return this.routeList(r)!;
+        } else {
+            return  <></>;
+        };
     }
     public routeList = (r: Ir) => {
         const MyComponent = r.component && AllComponents[r.component];

@@ -2,6 +2,8 @@ import * as React from 'react';
 import routesConfig from '../routes/config';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { Ir } from '../utils/declare';
+
 const SubMenu = Menu.SubMenu;
 const Item = Menu.Item;
 const menus = routesConfig.menus;
@@ -12,18 +14,9 @@ interface IOwnProps {
 	mode: string;
 }
 
-interface Ir {
-	key: string;
-    subs?: Ir[];
-    title?: string;
-    scan?: string;
-    component?: string|undefined;
-    icon?: string|undefined;
-}
-
 export default class SiderMenus extends React.Component<IOwnProps, {}> {
     
-    public getdatas = (rr: object[]) => {
+    public getdatas = (rr: Ir[]) : JSX.Element[] => {
         return menus.map(r => {
             return (
                 <SubMenu
@@ -40,7 +33,7 @@ export default class SiderMenus extends React.Component<IOwnProps, {}> {
             )
         });
     }
-    public getsubdata = (r: Ir): any => {
+    public getsubdata = (r : Ir) : JSX.Element => {
         if (r.subs) {
             return (<SubMenu
                 key={r.key}
@@ -54,10 +47,12 @@ export default class SiderMenus extends React.Component<IOwnProps, {}> {
                 {r.subs.map(v => this.getsubdata(v))}
             </SubMenu>)
         } else if (r.component) {
-            return this.routeList(r);
-        }
+            return this.routeList(r)!;
+        } else {
+            return  <></>;
+        };
     }
-    public routeList = (r: Ir) => {
+    public routeList = (r: Ir) : JSX.Element => {
         // 如果key非要用?可选定义，加这句就好啦
         // if (r.key == undefined) return null;
         return (<Item

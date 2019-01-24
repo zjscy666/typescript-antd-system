@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-class Bill extends React.Component {
+class Bill extends React.Component<{}, {}> {
 	public render() {
 		return (
 			<div key="Bill">

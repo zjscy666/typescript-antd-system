@@ -1,7 +1,7 @@
 export default {
     // 菜单相关路由
     // 规则有子菜单，必须有subs，如果没有子菜单，必须有component
-    menus: [ 
+    menus: [
         {
             
             key: '/User', title: '用户',icon: 'scan',
