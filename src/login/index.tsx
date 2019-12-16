@@ -5,7 +5,7 @@ import { loginStatus, userInfo } from '../redux/actions/login'
 import { login } from '../model/login'
 import { Redirect } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
-import { IBaseReActions } from "../redux/reducer/login/base";
+// import { IBaseReActions } from "../redux/reducer/login/base";
 import { IBaseComAction, IOwnstate } from "../redux/actions/base";
 
 const FormItem = Form.Item;
@@ -78,7 +78,7 @@ const mapStateToProps = (state: IBaseComAction) => {
 		}
 	}
 };
-const mapDispatchToProps = (dispatch: Dispatch<IBaseReActions>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
 	loginStatus: bindActionCreators(loginStatus, dispatch),
 	userInfo: bindActionCreators(userInfo, dispatch),
 });
